@@ -58,5 +58,8 @@ with tf.Session() as sess:
         if predicted_value == np.argmax(Y_test[i]):
             # if the prediction is right then a double value of 1./200 is added 200 here is the number of test
                 accuracy += 1. / len(X_test)
+    writer = tf.summary.FileWriter('./graphs',sess.graph)
+    writer.close()
+    # tensorboard --logdir="./graphs" --port 6006 in command promt to see the graph at localhost:6006
     print("Calculation completed ! ! ")
     print(K,"-th neighbors' Accuracy is:",accuracy)
