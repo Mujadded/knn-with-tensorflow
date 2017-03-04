@@ -47,17 +47,16 @@ accuracy=0
 init=tf.global_variables_initializer()
 
 #start of tensor session
-sess=tf.Session()
-sess.run(init)
+with tf.Session() as sess:
 
-for i in range(X_test.shape[0]):
-    #return the predicted value
-    predicted_value=sess.run(pred,feed_dict={xtr:X_traning,ytr:Y_traning,xte:X_test[i,:]})
+    for i in range(X_test.shape[0]):
+        #return the predicted value
+        predicted_value=sess.run(pred,feed_dict={xtr:X_traning,ytr:Y_traning,xte:X_test[i,:]})
 
-    print("Test",i,"Prediction",predicted_value,"True Class:",np.argmax(Y_test[i]))
+        print("Test",i,"Prediction",predicted_value,"True Class:",np.argmax(Y_test[i]))
 
-    if predicted_value == np.argmax(Y_test[i]):
-        # if the prediction is right then a double value of 1./200 is added 200 here is the number of test
-            accuracy += 1. / len(X_test)
-print("Calculation completed ! ! ")
-print(K,"-th neighbors' Accuracy is:",accuracy)
+        if predicted_value == np.argmax(Y_test[i]):
+            # if the prediction is right then a double value of 1./200 is added 200 here is the number of test
+                accuracy += 1. / len(X_test)
+    print("Calculation completed ! ! ")
+    print(K,"-th neighbors' Accuracy is:",accuracy)
